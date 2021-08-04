@@ -11,16 +11,14 @@ interface foodProps{
   handleDelete: (foodId: number) => void;
 }
 
-const Food = (props:foodProps): JSX.Element => {
+const Food = ({food, handleEditFood, handleDelete}:foodProps): JSX.Element => {
 
-  const {food, handleEditFood, handleDelete} = props
-  const { available } = props.food
+  const available  = food.available
 
   const [isAvailable,setIsAvailable] = useState(available);
 
-  async function toggleAvailable() {
+  const toggleAvailable = async () => {
     const id = food.id;
-    const isAvailable = food.available
 
     await api.put(`/foods/${id}`, {
       ...food,
